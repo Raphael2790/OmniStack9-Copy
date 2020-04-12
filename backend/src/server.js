@@ -1,11 +1,11 @@
 const express = require('express');
 const routes = require('./routes');
-const moongose = require('mongoose');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
 const app = express();
 
-moongose.connect(`mongodb+srv://${process.env.DATA_BASE}:${process.env.DATABASE_PASSWORD}@cluster0-zf6t1.gcp.mongodb.net/test?retryWrites=true&w=majority`,{
+mongoose.connect(`mongodb+srv://${process.env.DATA_BASE}:${process.env.DATABASE_PASSWORD}@cluster0-zf6t1.gcp.mongodb.net/omnistack9?retryWrites=true&w=majority`,{
   useNewUrlParser:true,
   useUnifiedTopology:true,
 })
