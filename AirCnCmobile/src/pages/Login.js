@@ -1,9 +1,36 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View,AsyncStorage, Text, Image, StyleSheet, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform} from 'react-native';
 
-import logo from '../assets/logo.png'
+import api from '../services/api'
 
-export default function Login() {
+import logo from '../assets/logo.png';
+
+
+export default function Login( { navigation }) {
+  const [ techs, setTechs] = useState('');
+  const [ email, setEmail] = useState('');
+
+  useEffect(() => {
+    AsyncStorage.getItem('user').then(user => {
+      if(user) {
+        navigation.navigate('List');
+      }
+    })
+  }, [])
+ 
+  async function handleSubmit() { 
+    const response = await api.post('/sessions', {
+      email
+    });
+
+    const {_id} = response.data
+
+    await AsyncStorage.setItem('user', _id);
+    await AsyncStorage.setItem('techs', techs)
+    
+    navigation.navigate('List')
+  }
+
   return (
     <View style={styles.container}>
       <Image source={logo}/>
@@ -18,6 +45,8 @@ export default function Login() {
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
+          value={email}
+          onChangeText={setEmail}
         />
       </View>
 
@@ -35,8 +64,10 @@ export default function Login() {
           keyboardType="default"
           autoCapitalize="words"
           autoCorrect={false}
+          onChangeText={text => setTechs(text)}
+          value={techs}
         />
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={handleSubmit} style={styles.button}>
         <Text style={styles.buttonText}>
          Encontrar Spots
         </Text>
