@@ -45,8 +45,8 @@ export default function Book({ navigation }) {
           </Text>
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={handleCancel} style={styles.button}>
-          <Text style={styles.cancelButton}>
+        <TouchableOpacity onPress={handleCancel} style={styles.cancelButton}>
+          <Text style={styles.buttonText}>
           Cancelar
           </Text>
         </TouchableOpacity>

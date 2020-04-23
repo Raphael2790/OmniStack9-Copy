@@ -12,7 +12,7 @@ function SpotList({ tech, navigation }) {
       const response = await api.get('/spots', {
         params: { tech } 
       })
-
+      console.log(response.data)
       setSpots(response.data)
     }
     loadSpots();
@@ -33,12 +33,14 @@ function SpotList({ tech, navigation }) {
         showsHorizontalScrollIndicator={false}
         renderItem={({item}) => (
            <View style={styles.listItem}>
-             <Image 
-             source={{uri:item.thumbnail_url}}
-             style={styles.thumbnail}/>
+             <View style={styles.thumbnail}>
+              <Image 
+              source={{ uri :item.thumbnail_url }}
+             />
+             </View>
              <Text style={styles.company}>{item.company}</Text>
              <Text style={styles.price}>{item.price?`R$${item.price}/dia`:"GRATUITO"}</Text>
-             <TouchableOpacity syle={styles.button} onPress={() => handleNavigate(item._id)}>
+             <TouchableOpacity style={styles.button} onPress={() => handleNavigate(item._id)}>
                <Text style={styles.buttonText}>Solicitar Reserva</Text>
              </TouchableOpacity>
            </View> 
@@ -50,40 +52,40 @@ function SpotList({ tech, navigation }) {
 
 const styles = StyleSheet.create({
   container:{
-    marginTop:30,
+    marginTop:30
 
   },
   title:{
     fontSize:20,
     color:'#444',
     paddingHorizontal:20,
-    marginBottom:15,
+    marginBottom:15
   },
   bold:{
     fontWeight:'bold'
   },
   list:{
-    paddingHorizontal:20,
+    paddingHorizontal:20
   },
   listItem:{
-    marginRight:15,
+    marginRight:15
   },
   thumbnail:{
     width:200,
     height:120,
     resizeMode:'cover',
-    borderRadius:2,
+    borderRadius:2
   },
   company:{
     fontSize:24,
     fontWeight:'bold',
     color:'#333',
-    marginTop: 10,
+    marginTop: 10
   },
   price:{
     fontSize:15,
     marginTop:5,
-    color:'#999',
+    color:'#999'
   },
   button:{
     height:32,
@@ -91,12 +93,12 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     borderRadius:2,
-    marginTop:15,
+    marginTop:15
   },
   buttonText: {
     color:'#fff',
     fontWeight:'bold',
-    fontSize:15,
+    fontSize:15
   }
 })
 
